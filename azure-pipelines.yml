@@ -7,7 +7,7 @@ trigger:
 - main
 
 jobs:
-  - job: Build NodeJs
+  - job: 'NodeBuild'
     pool:
       name: szecsikr
     steps:
@@ -22,7 +22,7 @@ jobs:
         npm run build
       displayName: 'npm install and build'
 
-  - job: Build Docker Image
+  - job: 'DockerBuild'
     pool:
       name: szecsikr
     steps:
