@@ -22,8 +22,10 @@ jobs:
         npm run build
       displayName: 'npm install and build'
   - job: Build Docker Image
-    displayName: Build an image
-    inputs:
-      repository: szecsikr/chatapp
-      command: build
-      Dockerfile: frontend/chat-app/Dockerfile
+    steps:
+    - displayName: Build an image
+      task: Docker@2
+      inputs:
+        repository: szecsikr/chatapp
+        command: build
+        Dockerfile: frontend/chat-app/Dockerfile
