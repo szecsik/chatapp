@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: szecsikr
+  name: szecsikr
 
 steps:
 - task: NodeTool@0
