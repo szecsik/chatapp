@@ -26,6 +26,10 @@ jobs:
     pool:
       name: szecsikr
     steps:
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce' # string. Required. Docker Version. Default: 17.09.0-ce.
+        #releaseType: 'stable' # 'stable' | 'edge' | 'test' | 'nightly'. Release type. Default: stable.
     - task: Docker@2
       inputs:
         repository: szecsikr/chatapp
