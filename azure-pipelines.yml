@@ -21,11 +21,14 @@ jobs:
         npm install
         npm run build
       displayName: 'npm install and build'
+
   - job: Build Docker Image
+    pool:
+      name: szecsikr
     steps:
     - task: Docker@2
       inputs:
         repository: szecsikr/chatapp
         command: build
         Dockerfile: frontend/chat-app/Dockerfile
-      displayName: Build an image
+      displayName: 'Build an image'
