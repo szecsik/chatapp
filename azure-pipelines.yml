@@ -38,6 +38,6 @@ jobs:
       displayName: 'Build an image'
     - task: Docker@2
       inputs:
-        repository: 'szecsikr/chatapp-backend:latest'
+        repository: 'szecsikr/chatapp-backend'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
