@@ -8,7 +8,7 @@ trigger:
 
 
 stages:
-  stage: BuildApp
+  - stage: BuildApp
   displayName: Build App
 
   jobs:
@@ -42,30 +42,30 @@ stages:
           repository: 'szecsikr/chatapp-backend'
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
-  stage: DeployDev
-  displayName: DeployDev
-  pool:
-    name: szecsikr
-  job:
-  - deployment: dev
-    environment:
+  - stage: DeployDev
+    displayName: DeployDev
+    pool:
       name: szecsikr
-      resourceType: Kubernetes
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: KubernetesManifest@0
-            name: bake
-            displayName: Bake K8s manifests from Helm chart
-            inputs:
-              action: bake
-              helmChart: chatapp/-backend
-              overrides: |
-                image.repository:szecsikr/chatapp-backend
-                image.repository.tag: 60
-          - task: KubernetesManifest@0
-            displayName: Deploy K8s manifests
-            inputs:
-              namespace: default
-              manifests: $(bake.manifestsBundle)
+    job:
+    - deployment: dev
+      environment:
+        name: szecsikr
+        resourceType: Kubernetes
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - task: KubernetesManifest@0
+              name: bake
+              displayName: Bake K8s manifests from Helm chart
+              inputs:
+                action: bake
+                helmChart: chatapp/-backend
+                overrides: |
+                  image.repository:szecsikr/chatapp-backend
+                  image.repository.tag: 60
+            - task: KubernetesManifest@0
+              displayName: Deploy K8s manifests
+              inputs:
+                namespace: default
+                manifests: $(bake.manifestsBundle)
