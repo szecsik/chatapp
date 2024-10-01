@@ -30,12 +30,8 @@ jobs:
       inputs:
         dockerVersion: '17.09.0-ce' # string. Required. Docker Version. Default: 17.09.0-ce.
         #releaseType: 'stable' # 'stable' | 'edge' | 'test' | 'nightly'. Release type. Default: stable.
-    - task: Docker@2
-      inputs:
-        repository: szecsikr/chatapp
-        command: build
-        Dockerfile: frontend/chat-app/Dockerfile
-      displayName: 'Build an image'
+    - script: |
+        docker login -u $(dockerhub-user) -p $(dockerhub-pw)
     - task: Docker@2
       inputs:
         repository: 'szecsikr/chatapp-backend'
