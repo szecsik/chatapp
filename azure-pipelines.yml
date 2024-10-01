@@ -43,30 +43,29 @@ stages:
           command: 'buildAndPush'
           Dockerfile: '**/Dockerfile'
   stage: DeployDev
-    displayName: DeployDev
-    pool:
+  displayName: DeployDev
+  pool:
+    name: szecsikr
+  job:
+  - deployment: dev
+    environment:
       name: szecsikr
-    job:
-    - deployment: dev
-      environment:
-        name: szecsikr
-        resourceType: Kubernetes
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - task: KubernetesManifest@0
-              name: bake
-              displayName: Bake K8s manifests from Helm chart
-              inputs:
-                action: bake
-                helmChart: chatapp/-backend
-                overrides: |
-                  image.repository:szecsikr/chatapp-backend
-                  image.repository.tag: 60
-            - task: KubernetesManifest@0
-              displayName: Deploy K8s manifests
-              inputs:
-                namespace: default
-                manifests: $(bake.manifestsBundle)
-
+      resourceType: Kubernetes
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: KubernetesManifest@0
+            name: bake
+            displayName: Bake K8s manifests from Helm chart
+            inputs:
+              action: bake
+              helmChart: chatapp/-backend
+              overrides: |
+                image.repository:szecsikr/chatapp-backend
+                image.repository.tag: 60
+          - task: KubernetesManifest@0
+            displayName: Deploy K8s manifests
+            inputs:
+              namespace: default
+              manifests: $(bake.manifestsBundle)
