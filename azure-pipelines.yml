@@ -9,39 +9,39 @@ trigger:
 
 stages:
   - stage: BuildApp
-  displayName: Build App
+    displayName: Build App
 
-  jobs:
-    - job: 'NodeBuild'
-      pool:
-        name: szecsikr
-      steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: '20.x'
-        displayName: 'Install Node.js'
+    jobs:
+      - job: 'NodeBuild'
+        pool:
+          name: szecsikr
+        steps:
+        - task: NodeTool@0
+          inputs:
+            versionSpec: '20.x'
+          displayName: 'Install Node.js'
 
-      - script: |
-          cd frontend/chat-app
-          npm install
-          npm run build
-        displayName: 'npm install and build'
+        - script: |
+            cd frontend/chat-app
+            npm install
+            npm run build
+          displayName: 'npm install and build'
 
-    - job: 'DockerBuild'
-      pool:
-        name: szecsikr
-      steps:
-      - task: DockerInstaller@0
-        inputs:
-          dockerVersion: '17.09.0-ce' # string. Required. Docker Version. Default: 17.09.0-ce.
-          #releaseType: 'stable' # 'stable' | 'edge' | 'test' | 'nightly'. Release type. Default: stable.
-      - script: |
-          docker login -u $(dockerhub-user) -p $(dockerhub-pw)
-      - task: Docker@2
-        inputs:
-          repository: 'szecsikr/chatapp-backend'
-          command: 'buildAndPush'
-          Dockerfile: '**/Dockerfile'
+      - job: 'DockerBuild'
+        pool:
+          name: szecsikr
+        steps:
+        - task: DockerInstaller@0
+          inputs:
+            dockerVersion: '17.09.0-ce' # string. Required. Docker Version. Default: 17.09.0-ce.
+            #releaseType: 'stable' # 'stable' | 'edge' | 'test' | 'nightly'. Release type. Default: stable.
+        - script: |
+            docker login -u $(dockerhub-user) -p $(dockerhub-pw)
+        - task: Docker@2
+          inputs:
+            repository: 'szecsikr/chatapp-backend'
+            command: 'buildAndPush'
+            Dockerfile: '**/Dockerfile'
   - stage: DeployDev
     displayName: DeployDev
     pool:
