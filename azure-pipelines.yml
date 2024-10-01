@@ -36,3 +36,8 @@ jobs:
         command: build
         Dockerfile: frontend/chat-app/Dockerfile
       displayName: 'Build an image'
+    - task: Docker@2
+      inputs:
+        repository: 'szecsikr/chatapp-backend:latest'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
