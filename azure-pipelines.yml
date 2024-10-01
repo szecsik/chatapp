@@ -46,7 +46,7 @@ stages:
     displayName: DeployDev
     pool:
       name: szecsikr
-    job:
+    jobs:
     - deployment: dev
       environment:
         name: szecsikr
