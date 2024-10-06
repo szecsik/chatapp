@@ -63,7 +63,7 @@ stages:
                 helmChart: chatapp-backend
                 overrides: |
                   image.repository:szecsikr/chatapp-backend
-                  image.tag:60
+                  image.tag:69
             - task: KubernetesManifest@0
               displayName: Deploy K8s manifests
               inputs:
