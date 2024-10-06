@@ -64,6 +64,7 @@ stages:
                 overrides: |
                   image.repository:szecsikr/chatapp-backend
                   image.tag:69
+                  releaseName: backend
             - task: KubernetesManifest@0
               displayName: Deploy K8s manifests
               inputs:
