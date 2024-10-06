@@ -69,3 +69,4 @@ stages:
               inputs:
                 namespace: default
                 manifests: $(bake.manifestsBundle)
+                rolloutStatusTimeout: 120
