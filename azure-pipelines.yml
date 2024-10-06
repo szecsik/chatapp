@@ -60,7 +60,7 @@ stages:
               displayName: Bake K8s manifests from Helm chart
               inputs:
                 action: bake
-                helmChart: chatapp/-backend
+                helmChart: chatapp-backend
                 overrides: |
                   image.repository:szecsikr/chatapp-backend
                   image.repository.tag: 60
