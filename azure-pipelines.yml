@@ -55,8 +55,6 @@ stages:
         runOnce:
           deploy:
             steps:
-            - script: helm dep update
-              displayName: 'Helm Dependency Update'
             - task: KubernetesManifest@0
               name: bake
               displayName: Bake K8s manifests from Helm chart
